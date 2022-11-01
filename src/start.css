@@ -1,0 +1,10 @@
+.start-screen {
+  background: #202020;
+  height: 100vh;
+}
+
+.start-screen .logo {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
