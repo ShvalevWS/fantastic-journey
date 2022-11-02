@@ -6,8 +6,7 @@ import asyncio
 class Caster:
     def __init__(self):
         self.com_port = com_port()
-        self.help = helper()
-        self.help.main()
+        self.help = helper(self.com_port)
         self.rtcm_reader = self.com_port.open_rtcm_reader()
         
 
