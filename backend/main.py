@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template, request, redirect, jsonify
+from flask import Flask, Response, render_template, request, redirect
 from caster.communicative_port import CommunicativePort as com_port
 from caster.config_manager import ConfigManager
 from caster.helpers import Helper as help
@@ -60,19 +60,18 @@ def corr_request():
      return redirect('/')
 
 
-# @app.route('/stream')
-# def stream():
+@app.route('/modem_status')
+def status_stream():
         
-#     def get_data():
-#         _com_port = com_port()
-#         _rtcm_reader = _com_port.open_rtcm_reader()
-#         for (raw_data, parsed_data) in _rtcm_reader:
-#             yield f"data: {str(parsed_data)}\n\n"
+    def get_stream_info():
+        
+        pass
+        # yield f"data: {str(parsed_data)}\n\n"
 
-#     resp = Response(get_data(), mimetype='text/event-stream')
-#     resp.headers.add('Access-Control-Allow-Origin', '*')
+    resp = Response(get_stream_info(), mimetype='text/event-stream')
+    resp.headers.add('Access-Control-Allow-Origin', '*')
 
-#     return resp
+    return resp
 
 
 if __name__ == '__main__':

@@ -2,9 +2,12 @@ from typing import Tuple
 from enum import Enum
 from functools import wraps
 import configparser, base64, os
+from patterns import Singleton
+import app_logger
 
+logger = app_logger.get_logger(__name__)
 
-class ConfigManager:
+class ConfigManager(Singleton):
     def get_app_file_path(file: str) -> str:
         """Return the absolute path of the app's files. They should be in the same folder as this py file."""
         folder,_ = os.path.split(__file__)
@@ -26,6 +29,7 @@ class ConfigManager:
     global absolute_path
     absolute_path = get_app_file_path('config.ini')
 
+
     def __setter__(self, section: str, option: str, value: str) -> None:
         ConfigManager.config.set(f'{section}', f"{option}", f"'{value}'")
         _absolute_path = absolute_path
@@ -36,12 +40,17 @@ class ConfigManager:
         if not configfile.closed:
             configfile.close()
 
+        logger.info('User successfully set an config option')
+
         return None      
+
 
     def __getter__(self, section: str, option: str) -> str:
         _updated_config = ConfigManager.config
         _updated_config.read(absolute_path)
         value = _updated_config.get(f'{section}', f'{option}').replace("'", "") 
+
+        logger.info('User successfully got an config option')
 
         return value
 
@@ -100,6 +109,7 @@ def auth_required(func):
         if keyline == checkline:
             return func(self, *args, **kwargs)
         else:
+            logger.warning('User send wrong credentials!')
             raise NotAuthenticatedError(f"Got {checkline} instead {keyline}")
 
     return wrapper 
@@ -117,6 +127,7 @@ def mount_required(func):
         if keyline == checkline:
             return func(self, *args, **kwargs)
         else:
+            logger.warning('User send wrong mountpoint!')
             raise WrongMountpointError(f"Got {checkline} instead {keyline}")
 
     return wrapper

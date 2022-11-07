@@ -1,13 +1,17 @@
 # from serial_asyncio import open_serial_connection
 from serial import Serial, SerialException
 from pyrtcm import RTCMReader
+from patterns import Singleton
+import app_logger
 
-class CommunicativePort:
+class CommunicativePort(Singleton):
     def __init__(self) -> None:
-        print('Trying to open serial connection')
+        self.logger = app_logger.get_logger(__name__)
+        self.logger.info('Trying to open serial connection')
         self.stream = self.wait_connection()
         self.rtcm_reader = self.open_rtcm_reader()
         
+
 
     def wait_connection(self) -> Serial:    
         while True:
@@ -15,7 +19,7 @@ class CommunicativePort:
                 try:
                     port = f'/dev/ttyACM{i}'
                     stream = Serial(port, baudrate=115200, timeout=2)
-                    print('Device connected')
+                    self.logger.info('Device connected')
                     return stream
                 except SerialException:
                     pass
@@ -27,7 +31,7 @@ class CommunicativePort:
             self.rtcm_reader = RTCMReader(self.stream)
             return self.rtcm_reader
         except Exception as e:
-            print(e)
+            self.logger.warning('RTCMReader openning error')
             pass 
 
 

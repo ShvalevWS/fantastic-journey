@@ -10,7 +10,7 @@ export function MobileConnectionStatusComponent() {
 
   useEffect(() => {
     
-    const sse = new EventSource('http://localhost:5000/stream')
+    const sse = new EventSource('http://localhost:5000/modem_status')
 
     function handleStream(e: any){
       console.log(e)

@@ -4,13 +4,17 @@ import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 from caster.config_manager import ConfigManager
+import caster.app_logger as app_logger
 
 class Helper:
     def __init__(self, com_port) -> None:
+        self.logger = app_logger.get_logger(__name__)
         self.com_port = com_port
         self.rtcm_reader = self.com_port.open_rtcm_reader()
         self.ser = self.com_port.stream
         self._conf_manager = ConfigManager() 
+        self.check_for_gngga()
+        self.check_for_rtcm()
         self.r_username = self._conf_manager.__getter__('REQUEST_CONFIG','r_username')
         self.r_password = self._conf_manager.__getter__('REQUEST_CONFIG','r_password')
         self.r_port = self._conf_manager.__getter__('REQUEST_CONFIG','r_port')
@@ -39,23 +43,24 @@ class Helper:
             time.sleep(2)
             data = s.recv(4096)
             self.ser.write(data)
+            self.logger.info(f'Sent correction request to {host}')
             return True
 
 
     def check_for_gngga(self) -> bool:
-        print('Waiting for gngga line...')
+        self.logger.info('Waiting for gngga line...')
         while True:
             if 'M,,' in self.com_port.gngga_line():
-                print('Found an GNGGA line!')
+                self.logger.info('Found an GNGGA line!')
                 return True
             else: continue
 
 
     def check_for_rtcm(self) -> bool:
-        print('Searching for 1005 RTCM string...')
+        self.logger.info('Searching for 1005 RTCM string...')
         for (raw_data, parsed_data) in self.rtcm_reader:
             if '<RTCM(1005' in str(parsed_data):
-                print(f'Got 1005 RTCM string!')
+                self.logger.info(f'Got 1005 RTCM string!')
                 return True
             else: continue
 

@@ -2,12 +2,15 @@ from helpers import Helper as helper
 from communicative_port import CommunicativePort as com_port, SerialException
 from config_manager import auth_required, mount_required
 import asyncio
+import app_logger
 
 class Caster:
     def __init__(self):
         self.com_port = com_port()
         self.help = helper(self.com_port)
         self.rtcm_reader = self.com_port.open_rtcm_reader()
+        self.logger = app_logger.get_logger(__name__)
+        self.logger.info('Starting a caster!')
         
 
     async def run_server(self, host: str, port: int) -> None:
@@ -20,11 +23,10 @@ class Caster:
 
         if request is None:
             print('Client unexpectedly disconnected')
-        elif b'GNGGA' in request:
-            pass
         else:
             try:
                 response = b'HTTP 200 OK ' + await self.handle_request(request)
+                self.logger.info('User successfully got response')
             except SerialException:
                 self.__init__()
             await self.write_response(writer, response)
