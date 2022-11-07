@@ -26,7 +26,6 @@ class Caster:
         else:
             try:
                 response = b'HTTP 200 OK ' + await self.handle_request(request)
-                self.logger.info('User successfully got response')
             except SerialException:
                 self.__init__()
             await self.write_response(writer, response)
@@ -68,6 +67,7 @@ class Caster:
                 lst.append(raw_data)
                 break
         string = b''.join(sorted(lst))
+        self.logger.info('User successfully got response')
         return string
 
 
@@ -80,4 +80,7 @@ class Caster:
 if __name__ == '__main__':
     caster = Caster()
     asyncio.run(caster.run_server('0.0.0.0', 2101))
+
+
+# TODO: Implement the GNGGA_ALLOWED decorator for tecnical purpose
     
