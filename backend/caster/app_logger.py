@@ -10,7 +10,7 @@ def get_absolute_dir_path() -> str:
 
 
 def get_file_handler() -> logging.FileHandler:
-    file_handler = logging.FileHandler()
+    file_handler = logging.FileHandler(get_absolute_dir_path())
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(logging.Formatter(_log_format))
     return file_handler
