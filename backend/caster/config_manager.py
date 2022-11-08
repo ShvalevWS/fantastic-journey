@@ -40,6 +40,8 @@ class ConfigManager(Singleton):
         if not configfile.closed:
             configfile.close()
 
+        logger.info('User successfully got an config option')
+
         return None      
 
 
@@ -47,8 +49,6 @@ class ConfigManager(Singleton):
         _updated_config = ConfigManager.config
         _updated_config.read(absolute_path)
         value = _updated_config.get(f'{section}', f'{option}').replace("'", "") 
-
-        logger.info('User successfully got an config option')
 
         return value
 
