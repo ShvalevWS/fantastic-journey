@@ -99,15 +99,15 @@ def auth_required(func):
         conf_password = _config_manager.__getter__('PEER_CONFIG', 'password')
         conf_mountpoint = _config_manager.__getter__('PEER_CONFIG', 'mountpoint')
         mountline = HeadersParser.parse_headers(*args)[2].replace("/", "")
-        mountkeyline = str(conf_mountpoint).replace("'", "")
-        checkline = HeadersParser.parse_headers(*args)[0]
-        keyline = base64.b64encode(f'{conf_username}:{conf_password}'.replace("'", "").encode('ascii'))
-        keyline = keyline.decode('ascii')
-        if keyline == checkline and mountline == mountkeyline:
+        mount_keyline = str(conf_mountpoint).replace("'", "")
+        user_authline = HeadersParser.parse_headers(*args)[0]
+        authline = base64.b64encode(f'{conf_username}:{conf_password}'.replace("'", "").encode('ascii'))
+        authline = authline.decode('ascii')
+        if authline == user_authline and mountline == mount_keyline:
             return func(self, *args, **kwargs)
         else:
-            logger.warning('User send wrong credentials!')
-            raise NotAuthenticatedError(f"Got {checkline} instead {keyline}")
+            logger.warning('User sent wrong mount or auth')
+            raise NotAuthenticatedError('User creds or mountpoint is wrong')
 
     return wrapper 
 
