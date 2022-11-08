@@ -23,6 +23,10 @@ class Caster:
 
         if request is None:
             print('Client unexpectedly disconnected')
+        elif 'GNGGA' in request:
+            self.logger.info('Client sent GNGGA line')
+            response = b'HTTP 200 OK'
+            await self.write_response(writer, response)
         else:
             try:
                 response = b'HTTP 200 OK ' + await self.handle_request(request)
@@ -80,7 +84,4 @@ class Caster:
 if __name__ == '__main__':
     caster = Caster()
     asyncio.run(caster.run_server('0.0.0.0', 2101))
-
-
-# TODO: Implement the GNGGA_ALLOWED decorator for tecnical purpose
     

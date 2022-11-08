@@ -40,8 +40,6 @@ class ConfigManager(Singleton):
         if not configfile.closed:
             configfile.close()
 
-        logger.info('User successfully set an config option')
-
         return None      
 
 
