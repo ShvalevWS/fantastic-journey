@@ -40,7 +40,7 @@ class ConfigManager(Singleton):
         if not configfile.closed:
             configfile.close()
 
-        logger.info('User successfully got an config option')
+        logger.info('User successfully set an config option')
 
         return None      
 
@@ -71,10 +71,6 @@ class NotAuthenticatedError(Exception):
     """Raised if user is not authenticated"""
 
 
-class WrongMountpointError(Exception):
-    """Raised if mountpoint is wrong"""
-
-
 class HeadersParser:
     def parse_headers(request: bytearray) -> Tuple:
         headers = []
@@ -95,16 +91,19 @@ class HeadersParser:
 _config_manager = ConfigManager()
 
 def auth_required(func):
-    """Decorator to check the request authentication.
+    """Decorator to check the request authentication and mountpoint.
     Takes request as the argument from decorated function"""
     @wraps(func)
     def wrapper(self, *args, **kwargs):
         conf_username = _config_manager.__getter__('PEER_CONFIG', 'username')
         conf_password = _config_manager.__getter__('PEER_CONFIG', 'password')
+        conf_mountpoint = _config_manager.__getter__('PEER_CONFIG', 'mountpoint')
+        mountline = HeadersParser.parse_headers(*args)[2].replace("/", "")
+        mountkeyline = str(conf_mountpoint).replace("'", "")
         checkline = HeadersParser.parse_headers(*args)[0]
         keyline = base64.b64encode(f'{conf_username}:{conf_password}'.replace("'", "").encode('ascii'))
         keyline = keyline.decode('ascii')
-        if keyline == checkline:
+        if keyline == checkline and mountline == mountkeyline:
             return func(self, *args, **kwargs)
         else:
             logger.warning('User send wrong credentials!')
@@ -112,20 +111,3 @@ def auth_required(func):
 
     return wrapper 
 
-
-def mount_required(func):
-    """Decorator to check the request mountpoint
-    takes request as the argument from decorated 
-    function"""
-    @wraps(func)
-    def wrapper(self, *args, **kwargs):
-        conf_mountpoint = _config_manager.__getter__('PEER_CONFIG', 'mountpoint')
-        checkline = HeadersParser.parse_headers(*args)[2].replace("/", "")
-        keyline = str(conf_mountpoint).replace("'", "")
-        if keyline == checkline:
-            return func(self, *args, **kwargs)
-        else:
-            logger.warning('User send wrong mountpoint!')
-            raise WrongMountpointError(f"Got {checkline} instead {keyline}")
-
-    return wrapper
