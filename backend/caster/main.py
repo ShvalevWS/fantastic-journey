@@ -1,6 +1,6 @@
 from helpers import Helper as helper
 from communicative_port import CommunicativePort as com_port, SerialException
-from config_manager import auth_required, mount_required
+from config_manager import auth_required
 import asyncio
 import app_logger
 
@@ -50,7 +50,6 @@ class Caster:
 
 
     @auth_required
-    @mount_required
     async def handle_request(self, request) -> str:
         lst = []
         for (raw_data, parsed_data) in self.rtcm_reader:
