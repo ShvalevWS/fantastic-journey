@@ -1,8 +1,8 @@
 # from serial_asyncio import open_serial_connection
 from serial import Serial, SerialException
 from pyrtcm import RTCMReader
-from patterns import Singleton
-import app_logger
+from caster.patterns import Singleton
+import caster.app_logger as app_logger
 
 class CommunicativePort(Singleton):
     def __init__(self) -> None:

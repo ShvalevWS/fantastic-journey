@@ -2,7 +2,12 @@ from flask import Flask, Response, render_template, request, redirect
 from caster.communicative_port import CommunicativePort as com_port
 from caster.config_manager import ConfigManager
 from caster.helpers import Helper as help
+from huawei_lte_api.Client import Client
+from huawei_lte_api.Connection import Connection
+from huawei_lte_api.exceptions import LoginErrorAlreadyLoginException
 from json import loads
+from time import sleep
+
 
 app = Flask(__name__)
 
@@ -64,9 +69,15 @@ def corr_request():
 def status_stream():
         
     def get_stream_info():
-        
-        pass
-        # yield f"data: {str(parsed_data)}\n\n"
+        with Connection('http://admin:WIFITEST@192.168.8.1') as connection:
+            while True:
+                try:
+                    sleep(1)
+                    client = Client(connection)
+                    signal_strength = client.device.signal()['rsrq']
+                    yield f"data: {str(signal_strength)}\n\n"
+                except LoginErrorAlreadyLoginException:
+                        connection.reload()
 
     resp = Response(get_stream_info(), mimetype='text/event-stream')
     resp.headers.add('Access-Control-Allow-Origin', '*')

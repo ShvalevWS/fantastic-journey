@@ -2,8 +2,8 @@ from typing import Tuple
 from enum import Enum
 from functools import wraps
 import configparser, base64, os
-from patterns import Singleton
-import app_logger
+from caster.patterns import Singleton
+import caster.app_logger as app_logger
 
 logger = app_logger.get_logger(__name__)
 

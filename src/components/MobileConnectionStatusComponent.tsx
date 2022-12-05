@@ -1,5 +1,6 @@
 import {Card, Skeleton} from "antd-mobile";
 import {SetStateAction, useEffect, useState} from "react";
+import exellent from "../images/exellent.jpeg"
 
 
 
@@ -7,6 +8,8 @@ import {SetStateAction, useEffect, useState} from "react";
 export function MobileConnectionStatusComponent() {
 
   const [data, setData] = useState(<Skeleton.Title animated></Skeleton.Title>)
+  const [image, setImage] = useState()
+
 
   useEffect(() => {
     
@@ -15,12 +18,12 @@ export function MobileConnectionStatusComponent() {
     function handleStream(e: any){
       console.log(e)
       setData(e.data)
+      setImage(e.data.image)
     }
 
     sse.onmessage = e =>{handleStream(e)}
 
     sse.onerror = e => {
-  
       sse.close()
     }
 
@@ -33,6 +36,10 @@ export function MobileConnectionStatusComponent() {
   return (
     <Card className={'status status__mobile'}>
       <span>Mobile connection</span>
+      <br></br>
+      <span>
+         {/* <img src={exellent}></img> */}
+      </span>
       <br></br>
       <span>{data}</span>
     </Card>
