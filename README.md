@@ -1,5 +1,3 @@
-# fantastic-journey
-
 ## How to install
 ```bash
 $ sudo su -> (type your password)
