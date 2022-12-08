@@ -3,7 +3,7 @@
 ## How to install
 ```bash
 $ sudo su -> (type your password)
-$ git clone 
+$ git clone https://gitub.com/SergeiR13/fantastic-journey
 $ cd fantastic-journey
 ```
 
