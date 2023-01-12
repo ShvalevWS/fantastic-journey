@@ -19,7 +19,7 @@ Next you need to click "Choose OS" and select "Raspberry PI OS (32-bit)"
 
 1.3. After writing, plug your Micro SD card into Raspberry PI, power it on and make sure you connected keyboard, mouse and HDMI cable 
 
-1.4.(OPTIONAL, go to the step two if not going to use ssh connection) If you want to set Acess Point, wich Raspberry Pi will connect to and work via ssh,
+1.4.(**OPTIONAL**, go to the step two if not going to use ssh connection) If you want to set Acess Point, wich Raspberry Pi will connect to and work via ssh,
 
 you should click on "gear" icon and hit few checkboxes:
 "Enable ssh"
