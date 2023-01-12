@@ -47,6 +47,7 @@ $ cd fantastic-journey
 ```
 Then, you need to type:
 ```bash
+$ apt install npm
 $ npm install react-scripts
 ```
 Then, to install all services and backend part, type:
