@@ -4,7 +4,11 @@ apt-get update && apt-get upgrade
 
 apt install npm
 
+cd ../
+
 npm install react-scripts
+
+cd backend/
 
 apt install python3-pip
 
