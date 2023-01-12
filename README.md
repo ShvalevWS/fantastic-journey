@@ -49,7 +49,7 @@ $ cd fantastic-journey
 Then, to install all services and backend part, type:
 ```bash
 $ cd backend
-$ chmod +x backend-autodeploy.sh
+$ chmod +x *.sh
 $ ./backend-autodeploy.sh
 ```
 Finally, to read the log file, with all the messages of proggram type this:
@@ -58,3 +58,20 @@ $ cat /var/log/ntrip-caster.log
 ```
 When you typing cat, you'll see all contents by the moment of .log file
 To watch for new changes you need to type 'cat backend/caster/caster.log' again
+
+## Troubleshooting
+
+If you got stuck in procces running backend-autodeploy.sh, simply hit **ctrl+c** to stop it and type
+```bash
+$ ./backend-autodeploy.sh
+```
+
+To check if caster is running type
+```bash
+$ systemctl status caster-backend.service
+```
+
+If service status **inactive** or **exited** type
+```bash
+$ systemctl restart caster-backend.service
+```
