@@ -4,6 +4,8 @@ apt-get update && apt-get upgrade
 
 apt install npm
 
+npm install react-scripts
+
 apt install python3-pip
 
 pip install -r requirements.txt
