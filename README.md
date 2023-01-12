@@ -45,11 +45,7 @@ $ sudo su -> (type your password)
 $ git clone https://gitub.com/SergeiR13/fantastic-journey
 $ cd fantastic-journey
 ```
-Then, you need to type:
-```bash
-$ apt install npm
-$ npm install react-scripts
-```
+
 Then, to install all services and backend part, type:
 ```bash
 $ cd backend
