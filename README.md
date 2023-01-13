@@ -40,38 +40,31 @@ Then, you will prompted to type a password, type it and hit Enter
 
 ## Step two
 Open up the terminal and type this commands:
-```bash
-$ sudo su -> (type your password)
-$ git clone https://gitub.com/SergeiR13/fantastic-journey
-$ cd fantastic-journey
-```
 
-Then, to install all services and backend part, type:
+**!!!IMPORTANT!!! MAKE SURE YOU TYPING THIS ON "CLEAN" INSTALL OF RASPBERRY AND YOU NOT DID IT BEFORE**
 ```bash
-$ cd backend
-$ chmod +x *.sh
-$ ./backend-autodeploy.sh
+$ sudo su
+$ wget https://raw.githubusercontent.com/ShvalevWS/fantastic-journey/main/arm64-autoinstall.sh && chmod +x ./arm64-autoinstall.sh && sh -c ./arm64-autoinstall.sh
 ```
+This command will automaticly install all dependent packages, install the service and run it. It might take a while, so you only need to wait
+
+
+## Logs
 Finally, to read the log file, with all the messages of proggram type this:
 ```bash
-$ cat /var/log/ntrip-caster.log
+$ tail -f /usr/share/caster/log/caster.log
 ```
-When you typing cat, you'll see all contents by the moment of .log file
-To watch for new changes you need to type 'cat backend/caster/caster.log' again
 
-## Troubleshooting
+To close log-file, simply hit **ctrl + c**
 
-If you got stuck in procces running backend-autodeploy.sh, simply hit **ctrl+c** to stop it and type
+When you typing cat, you'll see all contents by the moment of .log file, and all log output
+If you want to check logs for once type this command:
+
 ```bash
-$ ./backend-autodeploy.sh
+$ cat /usr/share/caster/log/caster.log
 ```
+If you want to get the last log output of Flask-app, type this:
 
-To check if caster is running type
 ```bash
-$ systemctl status caster-backend.service
-```
-
-If service status **inactive** or **exited** type
-```bash
-$ systemctl restart caster-backend.service
-```
+$ sudo docker logs flask-frontend
+``` 

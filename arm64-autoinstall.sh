@@ -12,3 +12,6 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
+wget https://raw.githubusercontent.com/ShvalevWS/fantastic-journey/main/docker-compose.yml
+
+docker compose -f docker-compose.yml up -d
