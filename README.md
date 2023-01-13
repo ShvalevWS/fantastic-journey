@@ -44,6 +44,8 @@ Open up the terminal and type this commands:
 **!!!IMPORTANT!!! MAKE SURE YOU TYPING THIS ON "CLEAN" INSTALL OF RASPBERRY AND YOU NOT DID IT BEFORE**
 ```bash
 $ sudo su
+$ git clone https://github.com/SergeiR13/fantastic-journey
+$ cd fantastic-journey
 $ curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 $ wget https://raw.githubusercontent.com/ShvalevWS/fantastic-journey/main/arm64-autoinstall.sh && chmod +x ./arm64-autoinstall.sh && sh -c ./arm64-autoinstall.sh
 ```
