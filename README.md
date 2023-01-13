@@ -15,7 +15,7 @@ Download Imager for your system type.
 
 Select the micro-sd card, connected to your PC on which you want to install the operating system
 
-Next you need to click "Choose OS" and select "Raspberry PI OS (32-bit)"
+Next you need to click "Choose OS" and select "Raspberry PI OS LITE (64-bit)"
 
 1.3. After writing, plug your Micro SD card into Raspberry PI, power it on and make sure you connected keyboard, mouse and HDMI cable 
 
@@ -44,6 +44,7 @@ Open up the terminal and type this commands:
 **!!!IMPORTANT!!! MAKE SURE YOU TYPING THIS ON "CLEAN" INSTALL OF RASPBERRY AND YOU NOT DID IT BEFORE**
 ```bash
 $ sudo su
+$ curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 $ wget https://raw.githubusercontent.com/ShvalevWS/fantastic-journey/main/arm64-autoinstall.sh && chmod +x ./arm64-autoinstall.sh && sh -c ./arm64-autoinstall.sh
 ```
 This command will automaticly install all dependent packages, install the service and run it. It might take a while, so you only need to wait
