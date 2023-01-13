@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: react-frontend
+    image: sega1294/frontend-docker 
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
+    restart: always
+  backend:
+    container_name: flask-backend
+    image: sega1294/backend-docker
+    volumes:
+      - /usr/share/caster/log/:/code/caster/log/
+    ports:
+      - 2101:2101
+      - 5000:5000
+    devices:
+      - "/dev/ttyACM0"
+    restart: always
