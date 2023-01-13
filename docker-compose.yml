@@ -3,7 +3,7 @@ version: "3.8"
 services:
   frontend:
     container_name: react-frontend
-    image: sega1294/frontend-docker 
+    image: sega1294/frontend-docker:latest@sha256:5474f90bd45ef7e0074d4a8f194457a62191a5a9bf6f6593ddfb0e9f7a1db9f1
     volumes:
       - ./src:/app/src
     ports:
@@ -11,7 +11,7 @@ services:
     restart: always
   backend:
     container_name: flask-backend
-    image: sega1294/backend-docker
+    image: sega1294/backend-docker:latest@sha256:429d7e9383fd2b742a0d72dec759f78a4968b457076955b8c2cbe2275583e3c0
     volumes:
       - /usr/share/caster/log/:/code/caster/log/
     ports:
