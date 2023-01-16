@@ -5,7 +5,7 @@ RUN pip install --user -r requirements.txt
 
 
 FROM python:3.10-slim
-WORKDIR /code
+WORKDIR /caster
 
 COPY --from=builder /root/.local /root/.local
 

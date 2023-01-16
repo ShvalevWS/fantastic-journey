@@ -21,7 +21,7 @@ services:
     restart: always
   caster:
     container_name: caster-server
-    image: sega1294/caster-server:latest@sha256:fe0e120b4cfafa61ef11c1e0a48add138292be16b5c727d0ca24680325db7451
+    image: sega1294/caster-server:latest@sha256:def0ae2f00e2352826220a255fb10d07ea6e7eb34de7f96cb907fc89f9165acf
     ports:
       - 2101:2101
     devices:
