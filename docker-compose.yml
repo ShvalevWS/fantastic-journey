@@ -15,8 +15,15 @@ services:
     volumes:
       - /usr/share/caster/log/:/code/caster/log/
     ports:
-      - 2101:2101
       - 5000:5000
+    devices:
+      - "/dev/ttyACM0"
+    restart: always
+  caster:
+    container_name: caster-server
+    image: sega1294/caster-server:latest@sha256:fe0e120b4cfafa61ef11c1e0a48add138292be16b5c727d0ca24680325db7451
+    ports:
+      - 2101:2101
     devices:
       - "/dev/ttyACM0"
     restart: always

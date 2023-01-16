@@ -1,0 +1,2 @@
+pyrtcm==0.2.7
+pyserial==3.5
