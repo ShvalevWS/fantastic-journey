@@ -16,6 +16,5 @@ USER root
 ENV PATH=/root/.local:$PATH
 
 EXPOSE 5000
-EXPOSE 2101
 
 CMD [ "python3", "-u", "main.py" ]
