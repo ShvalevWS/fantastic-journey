@@ -11,8 +11,8 @@ from time import sleep
 
 app = Flask(__name__)
 
-_com_port = com_port()
-_help = help(com_port=_com_port)
+# _com_port = com_port()
+# _help = help(com_port=_com_port)
 _conf_manager = ConfigManager()
 
 
@@ -58,11 +58,11 @@ def list_mount():
     return _mount
 
 
-@app.route('/corr_request', methods=['GET'])
-def corr_request():
-     _help.do_corr_request()
+# @app.route('/corr_request', methods=['GET'])
+# def corr_request():
+#      _help.do_corr_request()
 
-     return redirect('/')
+#      return redirect('/')
 
 
 @app.route('/modem_status')
